@@ -1,33 +1,31 @@
-console.log("hoi")
+
 
 function GameObject() 
 {
-	this.name = "default name";
-	this.x = 0;
-	this.y = 0;
+	this.name = "just another gameobject";
+	this.transform = new Transform();
 }
 
 
-function Ship() 
-{	
-	var parent = new GameObject();
-	var me = Object.create(parent);
-	me.maxspeed = 589;
-	return me;
-}
-
-function CargoVessel()
+function Transform()
 {
-	var parent = new Ship();
-	var me = Object.create(parent);
-	me.hullcapacity = 50;
-	return me;
+	this.position = new Vector2();
+	this.rotation = 0;
+	this.scale = new Vector2();
 }
 
 
-var myship = new CargoVessel();
-myship.name = "bertha";
-console.log(myship);
+function Vector2(x,y)
+{
+	console.log("vector2 args x=" + x);
+	if (x==undefined) this.x=0;
+	else this.x = x;
+	if (y==undefined) this.y=0;
+	else this.y = y;
+}
+
+
+
 
 
 
