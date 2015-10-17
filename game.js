@@ -1,4 +1,3 @@
-//game
 
 function Ship() 
 {	
@@ -8,15 +7,7 @@ function Ship()
 	return me;
 }
 
-function CargoVessel()
-{
-	var parent = new Ship();
-	var me = Object.create(parent);
-	me.hullcapacity = 50;
-	return me;
-}
+game = new Game("gamecanvas");
 
+var star = new GameObject("star");
 
-var myship = new CargoVessel();
-myship.name = "bertha2";
-console.log(myship);

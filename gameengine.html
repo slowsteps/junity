@@ -3,35 +3,40 @@
 <style>
 
 
-* {
-
+*
+{
 	font-family: sans-serif;
 }
 
-#gamecanvas {
-
+#gamecanvas
+{
 	background-color: lightblue;
-
 }
 
-#spritelibrary {
+#spritelibrary
+{
+	height : 100px;
+	background-color: lightgrey;
+}
 
-	background-color: grey;
-
+.spritepreview
+{
+	height: 100%;
 }
 
 
 </style>
 
-<h1>hof-engine</h1>	
+<h1>Junity</h1>
 
-<canvas id="gamecanvas" width="500" height="400"></canvas>
+<canvas id="gamecanvas" width="400" height="300"></canvas>
 
 
 <h2>Sprites</h2>
 <div id="spritelibrary">
-	<img id="star" src="star.png">
+	<img id="star" class="spritepreview" src="star.png">
 </div>
+<script src="gameengine.js"></script>
 <script src="game.js"></script>
 
 
