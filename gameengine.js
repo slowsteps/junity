@@ -6,13 +6,7 @@ function GameObject(textureid)
 
 	this.name = "just another gameobject";
 	this.transform = new Transform();
-    this.texture = textureid == undefined  ? 0 : document.getElementById(textureid);
-    console.log(this.texture.naturalHeight);
-
-    //this.LoadTexture = function(id)
-    //{
-    //    this.texture = document.getElementById(id);
-    //}
+    this.texture = new Image();
 
     Game.instance.gameObjects.push(this);
 
@@ -29,18 +23,24 @@ function Transform()
 	this.scale = new Vector2();
 }
 
-function Random()
-{
-    Random.InsideUnitCircle = function()
-    {
-        return new Vector2(Math.random(),Math.random())
-    }
+function Random() {}
 
-    Random.InsideRect = function(x,y,width,height)
-    {
-        return new Vector2(x + width*Math.random(),y + height*Math.random())
-    }
+Random.InsideUnitCircle = function()
+{
+    return new Vector2(Math.random(),Math.random());
 }
+
+
+function Resources() {}
+
+Resources.Load = function(filename)
+{
+    var img = new Image();
+    img.src = filename;
+    return img;
+}
+
+
 
 function Vector2(x,y)
 {
@@ -109,6 +109,7 @@ function Game(canvas)
     this.gameObjects = [];
     setInterval(GameloopUpdate,30);
 
+    //log util
     this.log = function(str)
     {
         document.getElementById("output").innerHTML = str;
@@ -128,13 +129,15 @@ function GameloopUpdate()
 
     var ctx = Game.instance.ctx;
 
+    ctx.clearRect(0,0,game.width,game.height);
+
     for (var i=0;i<game.gameObjects.length;i++)
     {
         var go = game.gameObjects[i];
         ctx.save();
-        ctx.clearRect(0,0,game.width,game.height);
         ctx.translate(go.transform.position.x,go.transform.position.y);
         ctx.rotate(go.transform.rotation * Math.PI / 180);
+        ctx.scale(go.transform.scale.x,go.transform.scale.y)
         ctx.drawImage(go.texture,-go.texture.naturalWidth/2,-go.texture.naturalHeight/2);
         ctx.restore();
 
