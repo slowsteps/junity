@@ -95,14 +95,11 @@ function Game(canvas)
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
-    //Input
-    this.input = new Input();
 
     this.canvas.onmousemove = function(e)
     {
-
-        Game.instance.input.mousePosition.x = e.clientX - this.offsetLeft;
-        Game.instance.input.mousePosition.y = e.clientY - this.offsetTop;
+        Input.mousePosition.x = e.clientX - this.offsetLeft;
+        Input.mousePosition.y = e.clientY - this.offsetTop;
     }
 
     //keep track of all gameobject and kickoff the gameloop
@@ -119,10 +116,10 @@ function Game(canvas)
 
 }
 
-function Input()
-{
-    this.mousePosition = new Vector2();
-}
+//TODO is this the cleanest way to setup utility objects?
+var Input = {}
+Input.mousePosition = new Vector2();
+
 
 function GameloopUpdate()
 {
@@ -131,7 +128,7 @@ function GameloopUpdate()
 
     ctx.clearRect(0,0,game.width,game.height);
 
-    for (var i=0;i<game.gameObjects.length;i++)
+    for (var i= 0,len=game.gameObjects.length; i<len; i++)
     {
         var go = game.gameObjects[i];
         ctx.save();
