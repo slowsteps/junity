@@ -9,13 +9,14 @@ function GameObject(textureid)
     this.texture = textureid == undefined  ? 0 : document.getElementById(textureid);
 
 
-    this.LoadTexture = function(id)
-    {
-        this.texture = document.getElementById(id);
-    }
+    //this.LoadTexture = function(id)
+    //{
+    //    this.texture = document.getElementById(id);
+    //}
 
     game.gameObjects.push(this);
 
+    this.Update = function() {};
 
 }
 
@@ -44,20 +45,49 @@ function Vector2(x,y)
 function Game(canvas)
 {
 
-    this.gameObjects = [];
-    var canvas = document.getElementById(canvas);
-    this.ctx = canvas.getContext("2d");
+    this.canvas = document.getElementById(canvas);
+    this.ctx = this.canvas.getContext("2d");
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
 
-    setInterval(RenderUpdate,30);
+    //Input
+    this.input = new Input();
+
+    this.canvas.onmousemove = function(e)
+    {
+
+        game.input.mousePosition.x = e.clientX - this.offsetLeft;
+        game.input.mousePosition.y = e.clientY - this.offsetTop;
+    }
+
+    //keep track of all gameobject and kickoff the gameloop
+    this.gameObjects = [];
+    setInterval(GameloopUpdate,30);
+
+    this.log = function(str)
+    {
+        document.getElementById("output").innerHTML = str;
+    }
 
 }
 
-function RenderUpdate()
+function Input()
+{
+    this.mousePosition = new Vector2();
+}
+
+function GameloopUpdate()
 {
 
     for (var i=0;i<game.gameObjects.length;i++)
     {
-        game.ctx.drawImage(game.gameObjects[i].texture,0,0);
+        var go = game.gameObjects[i];
+        game.ctx.save();
+        game.ctx.clearRect(0,0,game.width,game.height);
+        game.ctx.translate(go.transform.position.x,go.transform.position.y);
+        game.ctx.drawImage(go.texture,0,0);
+        game.ctx.restore();
+        go.Update();
     }
 
 }

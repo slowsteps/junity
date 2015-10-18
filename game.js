@@ -10,4 +10,10 @@ function Ship()
 game = new Game("gamecanvas");
 
 var star = new GameObject("star");
+star.Update = function()
+{
+	//console.log("updating");
+	this.transform.position = game.input.mousePosition;
+
+}
 
