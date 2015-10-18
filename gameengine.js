@@ -7,7 +7,7 @@ function GameObject(textureid)
 	this.name = "just another gameobject";
 	this.transform = new Transform();
     this.texture = textureid == undefined  ? 0 : document.getElementById(textureid);
-
+    console.log(this.texture.naturalHeight);
 
     //this.LoadTexture = function(id)
     //{
@@ -85,7 +85,7 @@ function GameloopUpdate()
         game.ctx.save();
         game.ctx.clearRect(0,0,game.width,game.height);
         game.ctx.translate(go.transform.position.x,go.transform.position.y);
-        game.ctx.drawImage(go.texture,0,0);
+        game.ctx.drawImage(go.texture,-go.texture.naturalWidth/2,-go.texture.naturalHeight/2);
         game.ctx.restore();
         go.Update();
     }
