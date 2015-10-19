@@ -116,6 +116,8 @@ function Game(canvas)
 
 }
 
+//TODO wrap entire engine in root "namespace" object
+
 //TODO is this the cleanest way to setup utility objects?
 var Input = {}
 Input.mousePosition = new Vector2();
